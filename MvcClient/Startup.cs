@@ -1,8 +1,8 @@
+using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace MvcClient
 {
@@ -29,6 +29,8 @@ namespace MvcClient
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";
 
+                    //目前发现一个问题：
+                    //SaveTokens如果设置为false，在identityserver退出后无法返回mvc客户端，经检查postlogoutredirecturi为null
                     options.SaveTokens = true;
                 });
         }
